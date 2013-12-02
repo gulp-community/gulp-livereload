@@ -21,7 +21,7 @@ var lr = require('tiny-lr'),
     server = lr();
 
 g.task('less', function () {
-  g.src(less/*.less)
+  g.src('less/*.less')
     .pipe(less())
     .pipe(g.dest('css'))
     .pipe(refresh(server));
