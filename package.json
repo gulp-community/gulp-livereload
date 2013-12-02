@@ -1,0 +1,18 @@
+{
+  "name": "gulp-livereload",
+  "description": "Gulp plugin for livereload.",
+  "version": "0.1.0",
+  "main": "gulp-livereload.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vohof/gulp-livereload.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "event-stream": "~3.0.16"
+  },
+  "keywords": [
+    "gulpplugin",
+    "livereload"
+  ]
+}
