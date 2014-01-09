@@ -3,6 +3,8 @@ gulp-livereload
 
 quick gulp plugin I made for livereload
 
+You should use this with the [livereload chrome extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
+
 Install
 ---
 
