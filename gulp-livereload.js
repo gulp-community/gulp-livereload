@@ -1,5 +1,5 @@
 module.exports = function (server) {
-  var es = require('event-stream');
+  var map = require('map-stream');
 
   var changed = function (file, cb) {
     server.changed({
@@ -11,5 +11,5 @@ module.exports = function (server) {
     cb(null, file);
   };
 
-  return es.map(changed);
+  return map(changed);
 };
