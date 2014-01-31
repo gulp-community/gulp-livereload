@@ -8,9 +8,6 @@
     "url": "git://github.com/vohof/gulp-livereload.git"
   },
   "license": "MIT",
-  "dependencies": {
-    "map-stream": "~0.1.0"
-  },
   "keywords": [
     "gulpplugin",
     "livereload"

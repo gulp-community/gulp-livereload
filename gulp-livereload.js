@@ -1,15 +1,18 @@
 module.exports = function (server) {
-  var map = require('map-stream');
+  'use strict';
 
-  var changed = function (file, cb) {
+  var Transform = require('stream').Transform,
+      reload = new Transform({objectMode:true});
+
+  reload._transform = function(file, encoding, next) {
     server.changed({
       body: {
         files: [file.path]
       }
     });
-
-    cb(null, file);
+    this.push(file);
+    next();
   };
 
-  return map(changed);
+  return reload;
 };
