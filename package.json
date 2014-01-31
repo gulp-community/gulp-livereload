@@ -11,5 +11,8 @@
   "keywords": [
     "gulpplugin",
     "livereload"
-  ]
+  ],
+  "dependencies": {
+    "gulp-util": "~2.2.13"
+  }
 }
