@@ -23,7 +23,7 @@ var lr = require('tiny-lr'),
     watch = require('gulp-watch'),
     server = lr();
 
-gulp.task('less', function() {
+gulp.task('less', ['listen'], function() {
   gulp.src('less/*.less')
     .pipe(watch())
     .pipe(less())
@@ -31,14 +31,12 @@ gulp.task('less', function() {
     .pipe(livereload(server));
 });
 
-gulp.task('listen', ['less'], function(next) {
+gulp.task('listen', function(next) {
   server.listen(35729, function(err) {
     if (err) return console.error(err);
     next();
   });
 });
-
-gulp.task('default', ['listen']);
 ```
 
 License
