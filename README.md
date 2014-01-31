@@ -20,24 +20,25 @@ var lr = require('tiny-lr'),
     gulp = require('gulp'),
     less = require('gulp-less'),
     livereload = require('gulp-livereload'),
+    watch = require('gulp-watch'),
     server = lr();
 
-gulp.task('less', function () {
+gulp.task('less', function() {
   gulp.src('less/*.less')
+    .pipe(watch())
     .pipe(less())
     .pipe(gulp.dest('css'))
     .pipe(livereload(server));
 });
 
-gulp.task('watch', function () {
-  server.listen(35729, function (err) {
-    if (err) return console.log(err);
-
-    gulp.watch('less/*.less', function () {
-        gulp.run('less');
-    });
+gulp.task('listen', ['less'], function(next) {
+  server.listen(35729, function(err) {
+    if (err) return console.error(err);
+    next();
   });
 });
+
+gulp.task('default', ['listen']);
 ```
 
 License
