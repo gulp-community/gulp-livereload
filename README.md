@@ -11,19 +11,18 @@ Install
 ---
 
 ```
-npm install --save gulp-livereload tiny-lr
+npm install --save gulp-livereload
 ```
 
 Sample Usage
 ---
 
 ```javascript
-var lr = require('tiny-lr'),
+var server = require('tiny-lr')(),
     gulp = require('gulp'),
     less = require('gulp-less'),
     livereload = require('gulp-livereload'),
-    watch = require('gulp-watch'),
-    server = lr();
+    watch = require('gulp-watch');
 
 gulp.task('less', ['listen'], function() {
   gulp.src('less/*.less')
