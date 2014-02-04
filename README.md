@@ -1,7 +1,9 @@
 gulp-livereload
 ===
 
-quick gulp plugin I made for livereload
+[![Build Status](https://travis-ci.org/vohof/gulp-livereload.png?branch=master)](https://travis-ci.org/vohof/gulp-livereload)
+
+quick gulp plugin for livereload.
 
 You should use this with the [livereload chrome extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
 
