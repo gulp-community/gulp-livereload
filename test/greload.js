@@ -26,7 +26,7 @@ describe('gulp-livereload', function() {
       done();
     });
   });
-  it('emits an error if an livereload server was not passed... for now', function() {
+  it('throws an error if an livereload server was not passed... for now', function() {
     should(function() {
       var reload = greload();
     }).throw('Please pass an instance of tiny-lr when calling gulp-livereload.');
