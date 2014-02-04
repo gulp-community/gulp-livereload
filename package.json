@@ -3,6 +3,9 @@
   "description": "Gulp plugin for livereload.",
   "version": "0.3.1",
   "main": "gulp-livereload.js",
+  "scripts": {
+    "test": "mocha"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/vohof/gulp-livereload.git"
