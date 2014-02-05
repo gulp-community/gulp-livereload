@@ -29,16 +29,15 @@ gulp.task('less', ['listen'], function() {
     .pipe(watch())
     .pipe(less())
     .pipe(gulp.dest('css'))
-    .pipe(livereload(server));
-});
-
-gulp.task('listen', function(next) {
-  server.listen(35729, function(err) {
-    if (err) return console.error(err);
-    next();
-  });
+    .pipe(livereload());
 });
 ```
+
+`livereload()` accepts one of these parameter:
+
+- a port number livereload will listen to
+- an instance of a livereload server
+- if none is passed, a livereload server is automatically created which listens to port 35729
 
 License
 ---
