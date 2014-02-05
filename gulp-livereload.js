@@ -29,12 +29,12 @@ module.exports = exports = function (server) {
     }
   }
 
-  if (!(server instanceof tinylr.Server)) {
-    throw new gutil.PluginError(
-      'gulp-livereload',
-      'Please pass a port number or an instance of tiny-lr when calling gulp-livereload.'
-    );
-  }
+  // if (!(server instanceof tinylr.Server)) {
+  //   throw new gutil.PluginError(
+  //     'gulp-livereload',
+  //     'Please pass a port number or an instance of tiny-lr when calling gulp-livereload.'
+  //   );
+  // }
 
   reload._transform = function(file, encoding, next) {
     var filename = magenta(path.basename(file.path));
