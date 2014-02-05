@@ -7,7 +7,12 @@ module.exports = exports = function (server) {
       tinylr = require('tiny-lr'),
       Transform = require('stream').Transform,
       reload = new Transform({objectMode:true}),
-      magenta = gutil.colors.magenta;
+      magenta = gutil.colors.magenta,
+      defaultPort = 35729;
+
+  if (typeof server === 'undefined') {
+    server = defaultPort;
+  }
 
   if (typeof server === 'number') {
     var port = server;
