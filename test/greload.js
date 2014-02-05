@@ -8,14 +8,13 @@ describe('gulp-livereload', function() {
       file = new gutil.File({
       path: '/foo/bar.css'
     }),
-      server,
-      spy;
+      server;
   beforeEach(function() {
     server = tinylr();
-    spy = sinon.spy(server, 'changed');
   });
   it('reloads file passing a livereload server instance', function(done) {
     var reload = greload(server);
+    var spy = sinon.spy(server, 'changed');
     reload.end(file);
     reload.on('data', function(file) {
       should(spy.calledWith({
@@ -26,9 +25,37 @@ describe('gulp-livereload', function() {
       done();
     });
   });
-  it('throws an error if an livereload server was not passed... for now', function() {
+  it('reloads file passing a port number', function(done) {
+    var port = 35730;
+    var reload = greload(port);
+    var spy = sinon.spy(greload.servers[port], 'changed');
+    reload.end(file);
+    reload.on('data', function(file) {
+      should(spy.calledWith({
+        body: {
+          files: [file.path]
+        }
+      })).ok;
+      done();
+    });
+  });
+  it('reloads file using default port if given no parameter at all', function(done) {
+    var reload = greload();
+    var port = 35729;
+    var spy = sinon.spy(greload.servers[port], 'changed');
+    reload.end(file);
+    reload.on('data', function(file) {
+      should(spy.calledWith({
+        body: {
+          files: [file.path]
+        }
+      })).ok;
+      done();
+    });
+  });
+  it('throws an error if neither a livereload server nor a port number was passed', function() {
     should(function() {
-      var reload = greload();
-    }).throw('Please pass an instance of tiny-lr when calling gulp-livereload.');
+      var reload = greload([]);
+    }).throw('Please pass a port number or an instance of tiny-lr when calling gulp-livereload.');
   });
 });
