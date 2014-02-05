@@ -18,8 +18,7 @@ Sample Usage
 ---
 
 ```javascript
-var server = require('tiny-lr')(),
-    gulp = require('gulp'),
+var gulp = require('gulp'),
     less = require('gulp-less'),
     livereload = require('gulp-livereload'),
     watch = require('gulp-watch');
