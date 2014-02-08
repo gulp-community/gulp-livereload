@@ -14,6 +14,9 @@ Install
 npm install --save gulp-livereload
 ```
 
+
+![](https://nodei.co/npm/gulp-livereload.png?downloads)
+
 Sample Usage
 ---
 
