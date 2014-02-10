@@ -26,12 +26,19 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     watch = require('gulp-watch');
 
-gulp.task('less', ['listen'], function() {
+gulp.task('less', function() {
   gulp.src('less/*.less')
     .pipe(watch())
     .pipe(less())
     .pipe(gulp.dest('css'))
     .pipe(livereload());
+});
+
+gulp.task('watch', function() {
+    var server = livereload();
+    gulp.watch('*.html', function(evt) {
+        server.changed(evt.path);
+    });
 });
 ```
 
