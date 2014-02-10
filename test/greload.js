@@ -58,4 +58,15 @@ describe('gulp-livereload', function() {
   //     var reload = greload([]);
   //   }).throw('Please pass a port number or an instance of tiny-lr when calling gulp-livereload.');
   // });
+  it('exposes .changed()', function() {
+    var port = 35728;
+    var reload = greload(port);
+    var spy = sinon.spy(greload.servers[port], 'changed');
+    reload.changed('foo/bar.txt');
+    should(spy.calledWith({
+      body: {
+        files: ['foo/bar.txt']
+      }
+    })).ok;
+  });
 });
