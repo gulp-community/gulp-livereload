@@ -36,17 +36,16 @@ module.exports = exports = function (server) {
   //   );
   // }
 
-  reload.changed = function(path) {
+  reload.changed = function(filePath) {
+    gutil.log(magenta(path.basename(filePath)) + ' was reloaded.');
     server.changed({
       body: {
-        files: [path]
+        files: [filePath]
       }
     });
   };
 
   reload._transform = function(file, encoding, next) {
-    var filename = magenta(path.basename(file.path));
-    gutil.log(filename + ' was reloaded.');
     reload.changed(file.path);
     this.push(file);
     next();
