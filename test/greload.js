@@ -69,4 +69,17 @@ describe('gulp-livereload', function() {
       }
     })).ok;
   });
+  it('displays debug messages', function() {
+    var gutil = require('gulp-util');
+    var port = 35727;
+    var reload = greload(port);
+    var spy = sinon.spy(gutil, 'log');
+
+    reload.changed('foo/bazbar.txt');
+    spy.calledWith(gutil.colors.magenta('bazbar.txt') + ' was reloaded.').should.not.be.ok;
+
+    process.env.NODE_DEBUG = 'livereload';
+    reload.changed('foo/bazbar.txt');
+    spy.calledWith(gutil.colors.magenta('bazbar.txt') + ' was reloaded.').should.be.ok;
+  });
 });
