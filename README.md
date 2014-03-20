@@ -1,7 +1,7 @@
 gulp-livereload
 ===
 
-[![Build Status](https://travis-ci.org/vohof/gulp-livereload.png?branch=master)](https://travis-ci.org/vohof/gulp-livereload) [![NPM version](https://badge.fury.io/js/gulp-livereload.png)](http://badge.fury.io/js/gulp-livereload) [ ![Dependency Status](https://david-dm.org/vohof/gulp-livereload.png)](https://david-dm.org/vohof/gulp-livereload)
+[![Build Status](http://img.shields.io/travis/vohof/gulp-livereload/master.svg)](https://travis-ci.org/vohof/gulp-livereload) ![Livereload downloads](http://img.shields.io/npm/dm/gulp-livereload.svg) [ ![NPM version](http://img.shields.io/npm/v/npm.svg)](https://www.npmjs.org/package/gulp-livereload) [ ![Dependency Status](https://david-dm.org/vohof/gulp-livereload.png)](https://david-dm.org/vohof/gulp-livereload)
 
 A [gulp](https://github.com/gulpjs/gulp) plugin for livereload best used with the [livereload chrome extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei).
 
