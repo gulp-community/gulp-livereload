@@ -1,7 +1,7 @@
 gulp-livereload
 ===
 
-[![Build Status](http://img.shields.io/travis/vohof/gulp-livereload/master.svg)](https://travis-ci.org/vohof/gulp-livereload) ![Livereload downloads ](http://img.shields.io/npm/dm/gulp-livereload.svg)  [ ![Dependency Status](https://david-dm.org/vohof/gulp-livereload.png)](https://david-dm.org/vohof/gulp-livereload)
+[![Build Status](http://img.shields.io/travis/vohof/gulp-livereload/master.svg)](https://travis-ci.org/vohof/gulp-livereload) ![Livereload downloads ](http://img.shields.io/npm/dm/gulp-livereload.svg)  [ ![Dependency Status](https://david-dm.org/vohof/gulp-livereload.png)](https://david-dm.org/vohof/gulp-livereload) [![MIT Licensed](http://img.shields.io/badge/license-MIT-blue.svg)](#license)
 
 A [gulp](https://github.com/gulpjs/gulp) plugin for livereload best used with the [livereload chrome extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei).
 
@@ -96,7 +96,7 @@ License
 
 The MIT License (MIT)
 
-Copyright (c) 2013 Cyrus David
+Copyright (c) 2014 Cyrus David
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to
 use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
