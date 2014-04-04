@@ -69,21 +69,13 @@ gulp.task('watch', function() {
 var livereload = require('gulp-livereload'),
     dest = 'build';
 
-gulp.task('staticsvr', function(next) {
-  var staticS = require('node-static'),
-      server = new staticS.Server('./' + dest),
-      port = 80;
-  require('http').createServer(function (request, response) {
-    request.addListener('end', function () {
-      server.serve(request, response);
-    }).resume();
-  }).listen(port, function() {
-    gutil.log('Server listening on port: ' + gutil.colors.magenta(port));
-    next();
-  });
+gulp.task('server', function(next) {
+  var connect = require('connect'),
+      server = connect();
+  server.use(connect.static(dest)).listen(process.env.PORT || 80, next);
 });
 
-gulp.task('watch', ['staticsvr'], function() {
+gulp.task('watch', ['server'], function() {
   var server = livereload();
   gulp.watch(dest + '/**').on('change', function(file) {
       server.changed(file.path);
