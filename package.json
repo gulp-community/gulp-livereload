@@ -17,7 +17,7 @@
   ],
   "dependencies": {
     "gulp-util": "~2.2.13",
-    "tiny-lr": "0.0.5"
+    "tiny-lr-fork": "0.0.5"
   },
   "devDependencies": {
     "should": "~3.1.2",
