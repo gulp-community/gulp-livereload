@@ -29,13 +29,6 @@ module.exports = exports = function (server) {
     }
   }
 
-  // if (!(server instanceof tinylr.Server)) {
-  //   throw new gutil.PluginError(
-  //     'gulp-livereload',
-  //     'Please pass a port number or an instance of tiny-lr when calling gulp-livereload.'
-  //   );
-  // }
-
   reload.changed = function(filePath) {
     if(process.env.NODE_DEBUG && process.env.NODE_DEBUG.match(/livereload/)) {
       gutil.log(magenta(path.basename(filePath)) + ' was reloaded.');
