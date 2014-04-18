@@ -4,7 +4,7 @@ module.exports = exports = function (server) {
 
   var gutil = require('gulp-util'),
       path = require('path'),
-      tinylr = exports.tinylr = require('tiny-lr-fork'),
+      tinylr = require('tiny-lr-fork'),
       Transform = require('stream').Transform,
       reload = new Transform({objectMode:true}),
       magenta = gutil.colors.magenta,
@@ -13,6 +13,8 @@ module.exports = exports = function (server) {
   if (typeof server === 'undefined') {
     server = defaultPort;
   }
+
+  exports.middleware = tinylr.middleware;
 
   if (typeof server === 'number') {
     var port = server;

@@ -77,4 +77,7 @@ describe('gulp-livereload', function() {
     reload.changed('foo/bazbar.txt');
     spy.calledWith(gutil.colors.magenta('bazbar.txt') + ' was reloaded.').should.be.ok;
   });
+  it('exposes tiny-lr middleware', function() {
+    (typeof greload.middleware).should.eql('function');
+  });
 });
