@@ -53,17 +53,6 @@ describe('gulp-livereload', function() {
       done();
     });
   });
-  it('exposes .changed()', function() {
-    var port = 35728;
-    var reload = greload(port);
-    var spy = sinon.spy(greload.servers[port], 'changed');
-    reload.changed('foo/bar.txt');
-    should(spy.calledWith({
-      body: {
-        files: ['foo/bar.txt']
-      }
-    })).ok;
-  });
   it('displays debug messages', function() {
     var gutil = require('gulp-util');
     var port = 35727;
@@ -76,8 +65,33 @@ describe('gulp-livereload', function() {
     process.env.NODE_DEBUG = 'livereload';
     reload.changed('foo/bazbar.txt');
     spy.calledWith(gutil.colors.magenta('bazbar.txt') + ' was reloaded.').should.be.ok;
+    process.env.NODE_DEBUG = null;
   });
   it('exposes tiny-lr middleware', function() {
     (typeof greload.middleware).should.eql('function');
+  });
+  describe('.changed', function() {
+    it('works', function() {
+      var port = 35728;
+      var reload = greload(port);
+      var spy = sinon.spy(greload.servers[port], 'changed');
+      reload.changed('foo/bar.txt');
+      should(spy.calledWith({
+        body: {
+          files: ['foo/bar.txt']
+        }
+      })).ok;
+    });
+    it('works', function() {
+      var port = 35726;
+      var reload = greload(port);
+      var spy = sinon.spy(greload.servers[port], 'changed');
+      reload.changed(file);
+      should(spy.calledWith({
+        body: {
+          files: ['/foo/bar.css']
+        }
+      })).ok;
+    });
   });
 });

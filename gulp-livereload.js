@@ -32,6 +32,7 @@ module.exports = exports = function (server) {
   }
 
   reload.changed = function(filePath) {
+    filePath = filePath.hasOwnProperty('path')? filePath.path : filePath;
     if(process.env.NODE_DEBUG && process.env.NODE_DEBUG.match(/livereload/)) {
       gutil.log(magenta(path.basename(filePath)) + ' was reloaded.');
     }
