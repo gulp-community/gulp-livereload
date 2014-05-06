@@ -1,6 +1,7 @@
-module.exports = exports = function (server) {
+module.exports = exports = function (server, options) {
   'use strict';
   exports.servers = exports.servers || {};
+  options = options || {};
 
   var gutil = require('gulp-util'),
       path = require('path'),
@@ -21,7 +22,7 @@ module.exports = exports = function (server) {
     if (exports.servers[port]) {
       server = exports.servers[port];
     } else {
-      exports.servers[port] = server = tinylr();
+      exports.servers[port] = server = tinylr(options);
       server.listen(port, function (err) {
         if (err) {
           throw new gutil.PluginError('gulp-livereload', err.message);
