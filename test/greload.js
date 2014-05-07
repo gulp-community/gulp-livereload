@@ -94,16 +94,20 @@ describe('gulp-livereload', function() {
       })).ok;
     });
   });
-  it('works on https', function() {
-    var port = 35725;
-    var fs = require('fs');
-    var https = require('https');
-    var spy = sinon.spy(https, 'createServer');
-    var reload = greload(port, {
-      cert: fs.readFileSync(__dirname + '/server.crt'),
-      key: fs.readFileSync(__dirname + '/server.key')
+  it('works on https', function(done) {
+    pem = require('pem');
+    pem.createCertificate({days:1, selfSigned:true}, function (err, keys) {
+      var port = 35725;
+      var fs = require('fs');
+      var https = require('https');
+      var spy = sinon.spy(https, 'createServer');
+      var reload = greload(port, {
+        key: keys.serviceKey,
+        cert: keys.certificate
+      });
+      spy.calledOnce.should.ok;
+      spy.restore();
+      done();
     });
-    spy.calledOnce.should.ok;
-    spy.restore();
   });
 });
