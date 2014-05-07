@@ -1,17 +1,18 @@
-/*jshint strict:false, unused:false */
+/*jshint strict:false, unused:false, expr:true, maxlen:999 */
 describe('gulp-livereload', function() {
   var gutil = require('gulp-util'),
       sinon = require('sinon'),
-      greload = require('../'),
+      greload = require('..'),
       tinylr = require('tiny-lr'),
       should = require('should'),
+      pem = require('pem'),
       file = new gutil.File({
-      path: '/foo/bar.css'
-    }),
+        path: '/foo/bar.css'
+      }),
       server;
-  beforeEach(function() {
-    server = tinylr();
-  });
+      beforeEach(function() {
+        server = tinylr();
+      });
   it('reloads file passing a livereload server instance', function(done) {
     var reload = greload(server);
     var spy = sinon.spy(server, 'changed');
@@ -95,7 +96,6 @@ describe('gulp-livereload', function() {
     });
   });
   it('works on https', function(done) {
-    pem = require('pem');
     pem.createCertificate({days:1, selfSigned:true}, function (err, keys) {
       var port = 35725;
       var fs = require('fs');
