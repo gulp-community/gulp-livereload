@@ -4,7 +4,7 @@ module.exports = exports = function (server) {
 
   var gutil = require('gulp-util'),
       path = require('path'),
-      tinylr = require('tiny-lr-fork'),
+      tinylr = require('tiny-lr'),
       Transform = require('stream').Transform,
       reload = new Transform({objectMode:true}),
       magenta = gutil.colors.magenta,

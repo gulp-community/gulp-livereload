@@ -3,7 +3,7 @@ describe('gulp-livereload', function() {
   var gutil = require('gulp-util'),
       sinon = require('sinon'),
       greload = require('../'),
-      tinylr = require('tiny-lr-fork'),
+      tinylr = require('tiny-lr'),
       should = require('should'),
       file = new gutil.File({
       path: '/foo/bar.css'
