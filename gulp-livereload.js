@@ -9,6 +9,7 @@ module.exports = exports = function (server, options) {
       Transform = require('stream').Transform,
       reload = new Transform({objectMode:true}),
       magenta = gutil.colors.magenta,
+      silent = options.silent || false,
       defaultPort = 35729;
 
   if (typeof server === 'undefined') {
@@ -27,14 +28,16 @@ module.exports = exports = function (server, options) {
         if (err) {
           throw new gutil.PluginError('gulp-livereload', err.message);
         }
-        gutil.log('Live reload server listening on: ' + magenta(port));
+        if (!silent) {
+          gutil.log('Live reload server listening on: ' + magenta(port));
+        }
       });
     }
   }
 
   reload.changed = function(filePath) {
     filePath = filePath.hasOwnProperty('path')? filePath.path : filePath;
-    if(process.env.NODE_DEBUG && process.env.NODE_DEBUG.match(/livereload/)) {
+    if (!silent) {
       gutil.log(magenta(path.basename(filePath)) + ' was reloaded.');
     }
 

@@ -12,8 +12,10 @@ Install
 npm install --save-dev gulp-livereload
 ```
 
-### livereload([param])
+### livereload([param, opts])
 
+#### opts
+When `opts.silent` is true, all debug messages are suppressed. Default: **false**
 
 #### param
 Type: `Number` or `tinylr.Server` <br>
