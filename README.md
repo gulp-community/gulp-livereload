@@ -12,15 +12,21 @@ Install
 npm install --save-dev gulp-livereload
 ```
 
-### livereload([param, opts])
-
-#### opts
-When `opts.silent` is true, all debug messages are suppressed. Default: **false**
+### livereload([param])
 
 #### param
 Type: `Number` or `tinylr.Server` <br>
 
 Port number livereload will listen to or an instance of a `tiny-lr` server. If none is passed, a livereload server is automatically created listening to the default port `35729`.
+
+Returns a `Transform` stream
+
+### livereload(param [,opts])
+
+#### opts
+When `opts.silent` is true, all debug messages are suppressed. Default: **false**
+
+**Important** : When passing in opts, `param` is **required**
 
 Returns a `Transform` stream
 
