@@ -54,19 +54,17 @@ describe('gulp-livereload', function() {
       done();
     });
   });
-  it('displays debug messages', function() {
+  it('doesn\'t display debug messages when in silent mode', function() {
     var gutil = require('gulp-util');
-    var port = 35727;
-    var reload = greload(port);
+    var silent_reload = greload(35734, {silent: true});
+    var noisy_reload = greload(35735);
     var spy = sinon.spy(gutil, 'log');
 
-    reload.changed('foo/bazbar.txt');
+    silent_reload.changed('foo/bazbar.txt');
     spy.calledWith(gutil.colors.magenta('bazbar.txt') + ' was reloaded.').should.not.be.ok;
 
-    process.env.NODE_DEBUG = 'livereload';
-    reload.changed('foo/bazbar.txt');
+    noisy_reload.changed('foo/bazbar.txt');
     spy.calledWith(gutil.colors.magenta('bazbar.txt') + ' was reloaded.').should.be.ok;
-    process.env.NODE_DEBUG = null;
   });
   it('exposes tiny-lr middleware', function() {
     (typeof greload.middleware).should.eql('function');
