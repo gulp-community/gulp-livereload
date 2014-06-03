@@ -12,28 +12,44 @@ Install
 npm install --save-dev gulp-livereload
 ```
 
-### livereload([param])
+### livereload(port/server)
+### livereload(options)
+### livereload(port/server, options)
+### livereload()
 
-#### param
-Type: `Number` or `tinylr.Server` <br>
 
-Port number livereload will listen to or an instance of a `tiny-lr` server. If none is passed, a livereload server is automatically created listening to the default port `35729`.
+Create `Transform` stream and listen to the port or a `tiny-lr.Server` instance.  If none is passed, a livereload server is automatically created listening on port `35729`.
 
-Returns a `Transform` stream
 
-### livereload(param [,opts])
+**options.silent**
 
-#### opts
-When `opts.silent` is true, all debug messages are suppressed. Default: **false**
+Suppress all debug messages. Default is `false`.
 
-**Important** : When passing in opts, `param` is **required**
+**options.auto**
 
-Returns a `Transform` stream
+Automatically start a livereload server. Default is `true`.
+
+**options.key**<br>
+**options.cert**
+
+Options are also passed to `tinylr`. Including a `key` and `cert` will create an HTTPS server.
+
+### livereload.listen(port/server)
+### livereload.listen(options)
+### livereload.listen(port/server, options)
+### livereload.listen()
+
+Listen to the port or a `tiny-lr.Server` instance.  If none is passed, a livereload server is automatically created listening on port `35729`. Does not create a stream.
+
+### livereload.changed(filepath, port/server)
+### livereload.changed(filepath)
+
+Notify a change.
 
 Sample Usages
 ---
 
-`gulp-livereload` can be passed into a stream:
+use as a stream:
 
 ```javascript
 var gulp = require('gulp'),
@@ -50,7 +66,7 @@ gulp.task('less', function() {
 });
 ```
 
-or make use of `gulp.watch`
+use with `gulp.watch`
 
 ```javascript
 var gulp = require('gulp'),
@@ -64,10 +80,28 @@ gulp.task('less', function() {
 });
 
 gulp.task('watch', function() {
-  var server = livereload();
-  gulp.watch('build/**').on('change', function(file) {
-      server.changed(file.path);
-  });
+  livereload.listen();
+  gulp.watch('build/**').on('change', livereload.changed);
+});
+```
+
+start lr server at your own will
+
+```javascript
+var gulp = require('gulp'),
+    less = require('gulp-less'),
+    livereload = require('gulp-livereload');
+
+gulp.task('less', function() {
+  gulp.src('less/*.less')
+    .pipe(less())
+    .pipe(gulp.dest('css'))
+    .pipe(livereload({ auto: false }));
+});
+
+gulp.task('watch', function() {
+  livereload.listen();
+  gulp.watch('build/**', ['less']);
 });
 ```
 
