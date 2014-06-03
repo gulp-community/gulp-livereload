@@ -1,7 +1,7 @@
 gulp-livereload
 ===
 
-[![Build Status](http://img.shields.io/travis/vohof/gulp-livereload/master.svg)](https://travis-ci.org/vohof/gulp-livereload) ![Livereload downloads ](http://img.shields.io/npm/dm/gulp-livereload.svg)  [ ![Dependency Status](https://david-dm.org/vohof/gulp-livereload.png)](https://david-dm.org/vohof/gulp-livereload) [![MIT Licensed](http://img.shields.io/badge/license-MIT-blue.svg)](#license)
+[![Build Status](http://img.shields.io/travis/vohof/gulp-livereload/master.svg?style=flat)](https://travis-ci.org/vohof/gulp-livereload) ![Livereload downloads ](http://img.shields.io/npm/dm/gulp-livereload.svg?style=flat) [![MIT Licensed](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](#license)
 
 A [gulp](https://github.com/gulpjs/gulp) plugin for livereload best used with the [livereload chrome extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei).
 
@@ -18,7 +18,7 @@ npm install --save-dev gulp-livereload
 ### livereload()
 
 
-Create `Transform` stream and listen to the port or a `tiny-lr.Server` instance.  If none is passed, a livereload server is automatically created listening on port `35729`.
+Create a `Transform` stream and listen to the port or a `tiny-lr.Server` instance.  If none is passed, a livereload server is automatically started listening on port `35729`.
 
 
 **options.silent**
@@ -39,7 +39,7 @@ Options are also passed to `tinylr`. Including a `key` and `cert` will create an
 ### livereload.listen(port/server, options)
 ### livereload.listen()
 
-Listen to the port or a `tiny-lr.Server` instance.  If none is passed, a livereload server is automatically created listening on port `35729`. Does not create a stream.
+Listen to the port or a `tiny-lr.Server` instance.  If none is passed, a livereload server is automatically started listening on port `35729`. Does not create a stream.
 
 ### livereload.changed(filepath, port/server)
 ### livereload.changed(filepath)
