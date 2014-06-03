@@ -1,0 +1,118 @@
+/*jshint strict:false, unused:false, expr:true, maxlen:999 */
+describe('gulp-livereload', function() {
+  var gutil = require('gulp-util'),
+      sinon = require('sinon'),
+      greload = require('..'),
+      should = require('should');
+  it('accepts an lr instance', function(done) {
+    var server = require('tiny-lr')(),
+        reload = greload(server),
+        mock = sinon.mock(server);
+
+    mock.expects('changed').once().withArgs({ body: { files: ['lr.css'] } });
+
+    reload
+      .on('data', function(file) {
+        mock.verify();
+        done();
+      })
+      .end(new gutil.File({
+        path: 'lr.css'
+      }));
+  });
+  it('accepts a port number', function(done) {
+    var port = 35730,
+        reload = greload(port),
+        spy = sinon.spy(),
+        stub = sinon.stub(greload, 'listen');
+
+    stub.withArgs(port).returns({ changed: spy });
+    reload
+      .once('data', function(file) {
+        should(spy.calledWith({ body: { files: ['123.css'] } })).ok;
+        stub.restore();
+        done();
+      })
+      .end(new gutil.File({
+        path: '123.css'
+      }));
+  });
+  it('accepts options as first parameter', function() {
+    var gutil = require('gulp-util');
+    var reload = greload({ silent: true });
+    var spy = sinon.spy(gutil, 'log');
+
+    greload.changed('debug.css');
+    spy.calledOnce.should.not.be.ok;
+    spy.restore();
+  });
+  it('requires no parameters', function(done) {
+    var reload = greload(),
+        spy = sinon.spy(),
+        stub = sinon.stub(greload, 'listen');
+
+    stub.withArgs().returns({ changed: spy });
+    reload
+      .on('data', function(file) {
+        should(spy.calledWith({ body: { files: ['nil.css'] } })).ok;
+        stub.restore();
+        done();
+      })
+      .end(new gutil.File({
+        path: 'nil.css'
+      }));
+  });
+  it('doesn\'t display debug messages when in silent mode', function() {
+    var gutil = require('gulp-util');
+    var reload = greload(null, { silent: true });
+    var spy = sinon.spy(gutil, 'log');
+
+    greload.changed('debug.css');
+    spy.calledOnce.should.not.be.ok;
+    spy.restore();
+  });
+  it('exposes tiny-lr middleware', function() {
+    (typeof greload.middleware).should.eql('function');
+  });
+  it('works on https', function(done) {
+    require('pem').createCertificate(
+      { days:1, selfSigned:true },
+      function (err, keys) {
+        var port = 35725;
+        var https = require('https');
+        var spy = sinon.spy(https, 'createServer');
+        var reload = greload(port, {
+          key: keys.serviceKey,
+          cert: keys.certificate,
+          silent: true
+        });
+        greload.listen(port);
+        spy.calledOnce.should.ok;
+        spy.restore();
+        done();
+      }
+    );
+  });
+  describe('.changed', function() {
+    it('works on strings', function() {
+      var reload = greload();
+      var spy = sinon.spy();
+      var stub = sinon.stub(greload, 'listen');
+
+      stub.withArgs().returns({ changed: spy });
+      greload.changed('foo/bar.txt');
+      should(spy.calledWith({ body: { files: ['foo/bar.txt'] } })).ok;
+      stub.restore();
+    });
+    it('works on objects', function() {
+      var reload = greload(),
+          spy = sinon.spy(),
+          stub = sinon.stub(greload, 'listen');
+
+      stub.withArgs().returns({ changed: spy });
+      greload.changed(new gutil.File({ path: 'obj.css' }));
+      should(spy.calledWith({ body: { files: ['obj.css'] } })).ok;
+      stub.restore();
+    });
+  });
+});
