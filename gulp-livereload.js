@@ -3,7 +3,7 @@
 var gutil = require('gulp-util'),
     path = require('path'),
     tinylr = require('tiny-lr'),
-    merge = require('lodash.merge'),
+    merge = require('lodash.assign'),
     Transform = require('stream').Transform,
     magenta = gutil.colors.magenta;
 
