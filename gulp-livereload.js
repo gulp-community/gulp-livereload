@@ -1,58 +1,100 @@
-module.exports = exports = function (server, options) {
-  'use strict';
-  exports.servers = exports.servers || {};
-  options = options || {};
+'use strict';
 
-  var gutil = require('gulp-util'),
-      path = require('path'),
-      tinylr = require('tiny-lr'),
-      Transform = require('stream').Transform,
-      reload = new Transform({objectMode:true}),
-      magenta = gutil.colors.magenta,
-      silent = options.silent || false,
-      defaultPort = 35729;
+var gutil = require('gulp-util'),
+    path = require('path'),
+    tinylr = require('tiny-lr'),
+    merge = require('lodash.merge'),
+    Transform = require('stream').Transform,
+    magenta = gutil.colors.magenta;
 
-  if (typeof server === 'undefined') {
-    server = defaultPort;
+module.exports = exports = function (server, opts) {
+  var reload = new Transform({ objectMode:true });
+
+  if (server !== null &&
+      typeof server === 'object' &&
+      !(server instanceof tinylr.Server) &&
+      !opts) {
+    merge(exports.options, server);
+    server = null;
+  } else {
+    merge(exports.options, opts);
   }
-
-  exports.middleware = tinylr.middleware;
-
-  if (typeof server === 'number') {
-    var port = server;
-    if (exports.servers[port]) {
-      server = exports.servers[port];
-    } else {
-      exports.servers[port] = server = tinylr(options);
-      server.listen(port, function (err) {
-        if (err) {
-          throw new gutil.PluginError('gulp-livereload', err.message);
-        }
-        if (!silent) {
-          gutil.log('Live reload server listening on: ' + magenta(port));
-        }
-      });
-    }
-  }
-
-  reload.changed = function(filePath) {
-    filePath = filePath.hasOwnProperty('path')? filePath.path : filePath;
-    if (!silent) {
-      gutil.log(magenta(path.basename(filePath)) + ' was reloaded.');
-    }
-
-    server.changed({
-      body: {
-        files: [filePath]
-      }
-    });
-  };
 
   reload._transform = function(file, encoding, next) {
-    reload.changed(file.path);
+    exports.changed(file.path, server);
     this.push(file);
     next();
   };
 
+  reload.changed = exports.changed;
+
   return reload;
 };
+
+exports.options = { auto: true };
+exports.servers = {};
+
+/**
+ * lr.listen()
+ * lr.listen(server)
+ * lr.listen(port)
+ */
+
+exports.listen = function(server, opts) {
+  if (server !== null &&
+      typeof server === 'object' &&
+      !(server instanceof tinylr.Server) &&
+      !opts) {
+    merge(exports.options, server);
+    server = null;
+  } else {
+    merge(exports.options, opts);
+  }
+
+  server = server || 35729;
+
+  if (typeof server === 'number') {
+    var port = server;
+
+    if (exports.servers[port]) {
+      return exports.servers[port];
+    }
+
+    if (!exports.options.auto) {
+      return;
+    }
+
+    exports.servers[port] = server = tinylr(exports.options);
+    server.listen(port, function (err) {
+      if (err) {
+        throw new gutil.PluginError('gulp-livereload', err.message);
+      }
+      if (!exports.options.silent) {
+        gutil.log('Live reload server listening on: ' + magenta(port));
+      }
+    });
+  }
+
+  return server;
+};
+
+/**
+ * lr.changed(filepath)
+ * lr.changed(filepath, server)
+ * lr.changed(filepath, port)
+ */
+
+exports.changed = function(filePath, server) {
+  server = exports.listen(server);
+  filePath = filePath.hasOwnProperty('path')? filePath.path : filePath;
+
+  if (!server) return;
+
+  if (!exports.options.silent) {
+    gutil.log(magenta(path.basename(filePath)) + ' was reloaded.');
+  }
+
+  server.changed({ body: { files: [filePath] } });
+};
+
+exports.middleware = tinylr.middleware;

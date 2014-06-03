@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "gulp-util": "~2.2.13",
+    "lodash.merge": "^2.4.1",
     "tiny-lr": "^0.0.7"
   },
   "devDependencies": {
