@@ -43,6 +43,7 @@ Listen to the port or a `tiny-lr.Server` instance.  If none is passed, a liverel
 
 ### livereload.changed(filepath, port/server)
 ### livereload.changed(filepath)
+### livereload.changed()
 
 Notify a change.
 
