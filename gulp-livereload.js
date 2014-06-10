@@ -86,7 +86,7 @@ exports.listen = function(server, opts) {
 
 exports.changed = function(filePath, server) {
   server = exports.listen(server);
-  filePath = filePath.hasOwnProperty('path')? filePath.path : filePath;
+  filePath = (filePath) ? filePath.hasOwnProperty('path') ? filePath.path : filePath : '*';
 
   if (!server) return;
 
