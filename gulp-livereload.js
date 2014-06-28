@@ -31,7 +31,7 @@ module.exports = exports = function (server, opts) {
   return reload;
 };
 
-exports.options = { auto: true };
+exports.options = { auto: true, basePath: null };
 exports.servers = {};
 
 /**
@@ -87,6 +87,10 @@ exports.listen = function(server, opts) {
 exports.changed = function(filePath, server) {
   server = exports.listen(server);
   filePath = (filePath) ? filePath.hasOwnProperty('path') ? filePath.path : filePath : '*';
+
+  if (exports.options.basePath !== null) {
+    filePath = '/' + path.relative(exports.options.basePath, filePath);
+  }
 
   if (!server) return;
 
