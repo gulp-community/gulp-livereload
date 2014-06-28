@@ -88,7 +88,7 @@ exports.changed = function(filePath, server) {
   server = exports.listen(server);
   filePath = (filePath) ? filePath.hasOwnProperty('path') ? filePath.path : filePath : '*';
 
-  if (exports.options.basePath !== null) {
+  if (exports.options.basePath) {
     filePath = '/' + path.relative(exports.options.basePath, filePath);
   }
 
