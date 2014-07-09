@@ -16,9 +16,9 @@
     "livereload"
   ],
   "dependencies": {
-    "gulp-util": "~2.2.16",
+    "gulp-util": "^2.2.16",
     "lodash.assign": "^2.4.1",
-    "tiny-lr": "^0.0.7"
+    "tiny-lr": "^0.0.9"
   },
   "devDependencies": {
     "should": "^3.3.0",
