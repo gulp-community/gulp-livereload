@@ -16,14 +16,14 @@
     "livereload"
   ],
   "dependencies": {
-    "gulp-util": "^2.2.16",
+    "gulp-util": "^3.0.0",
     "lodash.assign": "^2.4.1",
-    "tiny-lr": "^0.0.9"
+    "tiny-lr": "^0.1.0"
   },
   "devDependencies": {
-    "should": "^3.3.0",
-    "mocha": "^1.20.0",
-    "sinon": "^1.10.2",
+    "should": "^4.0.4",
+    "mocha": "^1.21.4",
+    "sinon": "^1.10.3",
     "pem": "^1.4.0"
   }
 }
