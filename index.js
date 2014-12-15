@@ -48,7 +48,7 @@ exports.changed = function (filePath) {
     filePath = filePath.path;
   }
   if (options.basePath) {
-    filePath = relative(options.basePath, filePath);
+    filePath = '/' + relative(options.basePath, filePath);
   }
   exports.server.changed({ body: { files: [ filePath ] } });
 };
