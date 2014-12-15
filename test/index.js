@@ -101,7 +101,7 @@ describe('gulp-livereload', function() {
       })
       .pipe(glr({ basePath: process.cwd() }))
       .on('end', function() {
-        assert(spy.calledWith(files('style.css')));
+        assert(spy.calledWith(files('/style.css')));
         done();
       });
   });
