@@ -1,0 +1,30 @@
+{
+  "name": "gulp-livereload",
+  "description": "Gulp plugin for livereload.",
+  "version": "2.1.1",
+  "main": "./index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vohof/gulp-livereload.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "gulpplugin",
+    "livereload"
+  ],
+  "dependencies": {
+    "debug": "^2.1.0",
+    "event-stream": "^3.1.7",
+    "gulp-util": "^3.0.1",
+    "lodash.assign": "^2.4.1",
+    "lodash.pick": "^2.4.1",
+    "tiny-lr": "^0.1.4"
+  },
+  "devDependencies": {
+    "mocha": "^2.0.1",
+    "sinon": "^1.12.2"
+  }
+}
