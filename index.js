@@ -30,7 +30,9 @@ exports.listen = function(opts) {
   options = _assign(options, opts);
   options.port = options.port || 35729;
   if (options.key && options.cert || options.pfx) {
-    exports.server = new tinylr.Server(_pick(options, [ 'key', 'cert', 'pfx', 'liveCSS' ]));
+    exports.server = new tinylr.Server(_pick(options, [
+      'key', 'cert', 'pfx', 'liveCSS'
+    ]));
   } else {
     exports.server = new tinylr.Server(_pick(options, [ 'liveCSS' ]));
   }
