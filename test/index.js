@@ -74,14 +74,17 @@ describe('gulp-livereload', function() {
     assert(spy.calledWith(9754));
   });
   it('https', function() {
+    var https = require('https');
+    var spy = sinon.spy(https, 'createServer');
     var read = require('fs').readFileSync;
     var opts  = {
       key: read(__dirname + '/dev.key'),
       cert: read(__dirname + '/dev.pem')
     };
-    srv.returns({ listen: function() {}});
+    srv.restore();
     glr.listen(opts);
-    assert(srv.calledWith(opts));
+    assert(spy.called);
+    glr.server.close();
   });
   it('vinyl', function() {
     var spy = sinon.spy();

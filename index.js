@@ -3,7 +3,6 @@
 var es = require('event-stream');
 var tinylr = require('tiny-lr');
 var relative = require('path').relative;
-var _pick = require('lodash.pick');
 var _assign = require('lodash.assign');
 var debug = require('debug')('gulp:livereload');
 var options = { port: 35729, host: 'localhost' };
@@ -28,11 +27,7 @@ exports.listen = function(opts) {
   if (exports.server) return;
   if (typeof opts === 'number') opts = { port: opts };
   options = _assign(options, opts);
-  if (options.key && options.cert || options.pfx) {
-    exports.server = new tinylr.Server(_pick(options, [ 'key', 'cert', 'pfx' ]));
-  } else {
-    exports.server = new tinylr.Server();
-  }
+  exports.server = new tinylr.Server(options);
   exports.server.listen(options.port, options.host, function() {
     debug('now listening on port %d', options.port);
   });
