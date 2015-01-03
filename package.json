@@ -1,7 +1,7 @@
 {
   "name": "gulp-livereload",
   "description": "Gulp plugin for livereload.",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "main": "./index.js",
   "scripts": {
     "test": "mocha"
