@@ -29,9 +29,11 @@ exports.listen = function(opts) {
   if (typeof opts === 'number') opts = { port: opts };
   options = _assign(options, opts);
   if (options.key && options.cert || options.pfx) {
-    exports.server = new tinylr.Server(_pick(options, [ 'key', 'cert', 'pfx' ]));
+    exports.server = new tinylr.Server(_pick(options, [
+      'key', 'cert', 'pfx', 'liveCSS'
+    ]));
   } else {
-    exports.server = new tinylr.Server();
+    exports.server = new tinylr.Server(_pick(options, [ 'liveCSS' ]));
   }
   exports.server.listen(options.port, options.host, function() {
     debug('now listening on port %d', options.port);

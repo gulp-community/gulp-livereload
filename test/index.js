@@ -119,6 +119,11 @@ describe('gulp-livereload', function() {
         done();
       });
   });
+  it('option: liveCSS', function(){
+    srv.returns({ listen: function() {} });
+    glr.listen({liveCSS: false});
+    assert(srv.calledWith({liveCSS: false}));
+  });
 });
 
 function files(filePath) {
