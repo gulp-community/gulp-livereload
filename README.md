@@ -52,6 +52,17 @@ gulp.task('watch', function() {
 
 See [examples](examples).
 
+Options
+---
+
+You can pass a few options to `gulp-livereload`:
+
+* `port [number]`: livereload server port
+* `host [string]`: livereload server host
+* `basePath [string]`: will be prepend to file path
+* `quiet [boolean]`: setting this to true will prevent gulp logs
+* `start [boolean]`: automatically starts the server
+
 Debugging
 ---
 
