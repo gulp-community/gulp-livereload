@@ -52,6 +52,17 @@ gulp.task('watch', function() {
 
 See [examples](examples).
 
+Debugging
+---
+
+Set the `DEBUG` environment variables to `*` to see what's going on
+
+
+```
+$ DEBUG=* gulp <task>
+```
+
+
 License
 ---
 

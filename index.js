@@ -6,6 +6,8 @@ var relative = require('path').relative;
 var _assign = require('lodash.assign');
 var debug = require('debug')('gulp:livereload');
 var options = { port: 35729, host: 'localhost' };
+var log = require('gulp-util').log;
+var magenta = require('chalk').magenta;
 
 module.exports = exports = function(opts) {
   options = _assign(options, opts);
@@ -45,6 +47,7 @@ exports.changed = function (filePath) {
     filePath = '/' + relative(options.basePath, filePath);
   }
   exports.server.changed({ body: { files: [ filePath ] } });
+  log(magenta(filePath) + ' reloaded.');
 };
 
 exports.middleware = tinylr.middleware;
