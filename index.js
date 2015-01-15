@@ -5,8 +5,8 @@ var tinylr = require('tiny-lr');
 var relative = require('path').relative;
 var _assign = require('lodash.assign');
 var debug = require('debug')('gulp:livereload');
-var options = { port: 35729, host: 'localhost', quiet: false };
-var log = require('gulp-util').log;
+var options = { quiet: false };
+var gutil = require('gulp-util');
 var magenta = require('chalk').magenta;
 
 module.exports = exports = function(opts) {
@@ -46,8 +46,12 @@ exports.changed = function (filePath) {
   if (options.basePath) {
     filePath = '/' + relative(options.basePath, filePath);
   }
+
   exports.server.changed({ body: { files: [ filePath ] } });
-  if(!options.quiet) log(magenta(filePath) + ' reloaded.');
+
+  if (!options.quiet) {
+    gutil.log(magenta(filePath) + ' reloaded.');
+  }
 };
 
 exports.middleware = tinylr.middleware;

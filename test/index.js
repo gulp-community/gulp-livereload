@@ -8,16 +8,13 @@ var sinon = require('sinon');
 var assert = require('assert');
 
 var cwd = process.cwd();
-var file = new gutil.File({
-  base: cwd,
-  cwd: cwd,
-  path: cwd + '/style.css'
-});
-var srv;
+var file = new gutil.File({ base: cwd, cwd: cwd, path: cwd + '/style.css' });
+var srv, log;
 
 describe('gulp-livereload', function() {
   beforeEach(function() {
     srv = sinon.stub(tinylr, 'Server');
+    log = sinon.stub(gutil, 'log');
   });
   afterEach(function() {
     ['basePath', 'key', 'cert', 'start'].forEach(function(key) {
@@ -25,6 +22,7 @@ describe('gulp-livereload', function() {
     });
     glr.server = null;
     srv.restore();
+    log.restore();
   });
   it('does not work', function(done) {
     var spy = sinon.spy();
@@ -121,6 +119,16 @@ describe('gulp-livereload', function() {
         assert(spy.calledWith(files(file.path)));
         done();
       });
+  });
+  it('option: quiet', function() {
+    var spy = sinon.spy();
+    var logSpy = sinon.spy();
+    log.returns(logSpy);
+    srv.returns({ changed: spy, listen: function() {} });
+    glr.listen({ quiet: true });
+    glr.changed(file);
+    assert(spy.calledWith(files(file.path)));
+    assert(logSpy.notCalled);
   });
 });
 
