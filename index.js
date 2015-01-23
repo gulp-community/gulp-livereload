@@ -9,6 +9,18 @@ var options = { quiet: false };
 var gutil = require('gulp-util');
 var magenta = require('chalk').magenta;
 
+/**
+ * Create a stream for telling
+ * the livereload server about changes
+ *
+ * @param {object|number} [opts]
+ * @param [opts.port]     livereload server port
+ * @param [opts.host]     livereload server host
+ * @param [opts.basePath] base directory the path will be resolved to
+ * @param [opts.start]    automatically start the server
+ * @param [opts.quiet=false]
+ */
+
 module.exports = exports = function(opts) {
   options = _assign(options, opts);
 
@@ -25,6 +37,17 @@ module.exports = exports = function(opts) {
 
 exports.options = options;
 
+/**
+ * Start the livereload server
+ *
+ * @param {object|number} [opts]
+ * @param [opts.port]     livereload server port
+ * @param [opts.host]     livereload server host
+ * @param [opts.basePath] base directory the path will be resolved to
+ * @param [opts.start]    automatically start the server
+ * @param [opts.quiet=false]
+ */
+
 exports.listen = function(opts) {
   if (exports.server) return;
   if (typeof opts === 'number') opts = { port: opts };
@@ -34,6 +57,11 @@ exports.listen = function(opts) {
     debug('now listening on port %d', options.port);
   });
 };
+
+/**
+ *
+ * @param  {string|object} filePath
+ */
 
 exports.changed = function (filePath) {
   if (!exports.server) {
@@ -53,5 +81,9 @@ exports.changed = function (filePath) {
     gutil.log(magenta(filePath) + ' reloaded.');
   }
 };
+
+/**
+ * Express middleware
+ */
 
 exports.middleware = tinylr.middleware;
