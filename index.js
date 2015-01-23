@@ -83,6 +83,13 @@ exports.changed = function (filePath) {
 };
 
 /**
+ * Invoke a page reload
+ */
+exports.reload = function() {
+  exports.changed('index.html');
+};
+
+/**
  * Express middleware
  */
 
