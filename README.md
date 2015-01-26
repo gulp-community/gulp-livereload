@@ -27,11 +27,11 @@ Install
 npm install --save-dev gulp-livereload
 ```
 
-3.x Upgrade Note
+3.x Upgrade Notice
 ---
 
-`gulp-livereload` will not automatically listening for changes. You'd have to manually call `livereload.listen`.
-You can read more about it below...
+`gulp-livereload` will not automatically listen for changes. You now have to manually call `livereload.listen` or enable auto start.
+More details below...
 
 API & Variables
 ---
