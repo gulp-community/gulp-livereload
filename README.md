@@ -27,10 +27,67 @@ Install
 npm install --save-dev gulp-livereload
 ```
 
-Usage
+3.x Upgrade Note
 ---
 
-#### Starting v3.x, `gulp-livereload` will not automatically listening for changes. You'd have to manually call `livereload.listen`.
+`gulp-livereload` will not automatically listening for changes. You'd have to manually call `livereload.listen`.
+You can read more about it below...
+
+API & Variables
+---
+
+livereload uses a config object throughout its methods and while you never have to
+use this, it is useful if you want to set configuration directly only once.
+
+    livereload.options.port                     Server port
+    livereload.options.host                     Server host
+    livereload.options.basePath                 Path to prepend all given paths
+    livereload.options.start                    Automatically start
+    livereload.options.quiet        false       Disable console logging
+    livereload.options.reloadFile   index.html  Path to the page the browsers on for a full page reload
+
+livereload also reveals the underlying server instance for direct access if needed. The instance
+is a "tiny-lr" instance that this wraps around. If the server is not running then this will be undefined.
+
+    livereload.server
+
+You can also directly access the middleware of the underlying server instance (tiny-lr.middleware) for
+hookup through express, connect, or some other middleware app
+
+    livereload.middleware
+
+To start livereload up and running, use this command. It takes an optional options parameter that is the
+same as the global one noted above. If none is present is uses the above one. Also you dont need to worry with multiple instances as
+this function will end immidiately if the server is already runing. 
+
+    livereload.listen(options)
+
+You can manually, yourself, send a change notification of a single file to the browser causing the browser to reload that change.
+All it requires is a single file path. Do also note that the basePath is not forgotten about and will be applied to the path if 
+provided or previosuly setup.
+
+You may provide a simple string or an object, if an object is given it expects a property called "path" to be present on it
+
+    livereload.change(path)
+
+You can also tell the browser to refresh the entire page, including all the assets on the page as opposed to individual assets.
+This works best for single-page apps but can work on any setup. Essentially you need to refresh the page the browser is currently on.
+With single-apge apps its just one page, if not then it must be the current page in the browser.
+
+However it's setup, this assumes the page is called "index.html", you can change it by providing an optional new path to use as a
+string or change it globally with the options object exposed and mentioned above.
+
+The base path is not forgotten about and will also be applied if setup
+
+    livereload.reload(path)
+
+Finally theres the Gulp pipe stream function, the most important function, which automatically sends the destination file through
+`livereload.change`
+
+    livereload(options)
+
+Example
+---
 
 ```javascript
 var gulp = require('gulp'),
@@ -51,17 +108,6 @@ gulp.task('watch', function() {
 ```
 
 See [examples](examples).
-
-Options
----
-
-You can pass a few options to `gulp-livereload`:
-
-* `port [number]`: livereload server port
-* `host [string]`: livereload server host
-* `basePath [string]`: will be prepend to file path
-* `quiet [boolean]`: setting this to true will prevent gulp logs
-* `start [boolean]`: automatically starts the server
 
 Debugging
 ---
