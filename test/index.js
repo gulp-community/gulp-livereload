@@ -9,6 +9,7 @@ var assert = require('assert');
 
 var cwd = process.cwd();
 var file = new gutil.File({ base: cwd, cwd: cwd, path: cwd + '/style.css' });
+var keys = ['basePath', 'key', 'cert', 'start', 'quiet', 'reloadPage'];
 var srv, log;
 
 describe('gulp-livereload', function() {
@@ -17,7 +18,7 @@ describe('gulp-livereload', function() {
     log = sinon.stub(gutil, 'log');
   });
   afterEach(function() {
-    ['basePath', 'key', 'cert', 'start'].forEach(function(key) {
+    keys.forEach(function(key) {
       delete glr.options[key];
     });
     glr.server = null;
