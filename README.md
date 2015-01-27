@@ -44,7 +44,7 @@ use this, it is useful if you want to set configuration directly only once.
     livereload.options.basePath                 Path to prepend all given paths
     livereload.options.start                    Automatically start
     livereload.options.quiet        false       Disable console logging
-    livereload.options.reloadFile   index.html  Path to the page the browsers on for a full page reload
+    livereload.options.reloadPage   index.html  Path to the page the browsers on for a full page reload
 
 livereload also reveals the underlying server instance for direct access if needed. The instance
 is a "tiny-lr" instance that this wraps around. If the server is not running then this will be undefined.
