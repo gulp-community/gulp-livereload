@@ -62,15 +62,13 @@ describe('gulp-livereload', function() {
     var spy = sinon.spy();
     srv.returns({ listen: spy });
 
-    spy.reset();
     glr.server = null;
     glr.listen(2453);
-    assert(spy.calledWith(2453));
+    assert(spy.firstCall.calledWith(2453));
 
-    spy.reset();
     glr.server = null;
     glr.listen({ port: 9754 });
-    assert(spy.calledWith(9754));
+    assert(spy.secondCall.calledWith(9754));
   });
   it('https', function() {
     var https = require('https');
@@ -96,8 +94,12 @@ describe('gulp-livereload', function() {
     var spy = sinon.spy();
     srv.returns({ changed: spy, listen: function() {} });
     glr.listen();
+
     glr.reload();
-    assert(spy.calledWith(files(glr.options.reloadPage)));
+    assert(spy.firstCall.calledWith(files(glr.options.reloadPage)));
+
+    glr.reload('not-index.html');
+    assert(spy.secondCall.calledWith(files('not-index.html')));
   });
   it('option: basePath', function(done) {
     var spy = sinon.spy();
