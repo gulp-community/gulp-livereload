@@ -17,7 +17,7 @@ var magenta = require('chalk').magenta;
  * quiet            Enable/Disable debug logging
  * reloadPage       The page to reload upon issuing a full page reload
  */
-var options = { 
+var options = {
     quiet: false,
     reloadPage: 'index.html'
 };
@@ -59,7 +59,7 @@ exports.server = undefined;
 
 /**
  * Express middleware
- * 
+ *
  * A direct reference to the underlying servers middleware reference
  */
 
@@ -67,7 +67,7 @@ exports.middleware = tinylr.middleware;
 
 /**
  * Start the livereload server
- * 
+ *
  * If opts isn't present the global is used, if opts is a number its used as
  * the port, otherwise as the config object
  *
@@ -92,11 +92,11 @@ exports.listen = function(opts) {
 /**
  * Instruct the server that a file has changed
  * and should be re-downloaded.
- * 
+ *
  * The server must be running or this method will exit on error.
  * If an object is given the "path" property is used, otherwise
  * its a path string
- * 
+ *
  * @param  {string|object} filePath
  */
 
@@ -121,14 +121,13 @@ exports.changed = function (filePath) {
 
 /**
  * Invoke a full page reload, including all assets
- * 
+ *
  * Path to the page in use must be given, If filePath isn't provided then the filePath will be used
  * from the global config which is by default "index.html". The basePath will automatically be
  * applied to this
- * 
+ *
  * * @param  {string} [filePath]
  */
 exports.reload = function(filePath) {
-    if(filePath) exports.changed(filePath);
-    else if(options.reloadPage) exports.changed(options.reloadPage);
+    exports.changed(filePath || options.reloadPage);
 };

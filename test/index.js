@@ -91,6 +91,13 @@ describe('gulp-livereload', function() {
     glr.changed(file);
     assert(spy.calledWith(files(file.path)));
   });
+  it('reload', function() {
+    var spy = sinon.spy();
+    srv.returns({ changed: spy, listen: function() {} });
+    glr.listen();
+    glr.reload();
+    assert(spy.calledWith(files(glr.options.reloadPage)));
+  });
   it('option: basePath', function(done) {
     var spy = sinon.spy();
     srv.returns({ changed: spy , listen: function() {}});
@@ -129,6 +136,13 @@ describe('gulp-livereload', function() {
     glr.changed(file);
     assert(spy.calledWith(files(file.path)));
     assert(logSpy.notCalled);
+  });
+  it('option: reloadPage', function() {
+    var spy = sinon.spy();
+    srv.returns({ changed: spy, listen: function() {} });
+    glr.listen({ reloadPage: 'not-index.html' });
+    glr.reload();
+    assert(spy.calledWith(files('not-index.html')));
   });
 });
 
