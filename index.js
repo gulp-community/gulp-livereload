@@ -5,13 +5,28 @@ var tinylr = require('tiny-lr');
 var relative = require('path').relative;
 var _assign = require('lodash.assign');
 var debug = require('debug')('gulp:livereload');
-var options = { quiet: false };
 var gutil = require('gulp-util');
 var magenta = require('chalk').magenta;
 
 /**
+ * Global Options
+ * port             Server Port
+ * host             Server Host
+ * basePath         base directory the path will be resolved to
+ * start            start the server automatically
+ * quiet            Enable/Disable debug logging
+ * reloadPage       The page to reload upon issuing a full page reload
+ */
+var options = { 
+    quiet: false,
+    reloadPage: 'index.html'
+};
+
+/**
  * Create a stream for telling
  * the livereload server about changes
+ *
+ * If opts isn't present then return
  *
  * @param {object|number} [opts]
  * @param [opts.port]     livereload server port
@@ -35,10 +50,26 @@ module.exports = exports = function(opts) {
   return glr;
 };
 
+// Note: This is a good way to directly set the settings once throughout
+// the program, a reference to the global options
 exports.options = options;
+
+// A way to grab or change the underlying server instance
+exports.server = undefined;
+
+/**
+ * Express middleware
+ * 
+ * A direct reference to the underlying servers middleware reference
+ */
+
+exports.middleware = tinylr.middleware;
 
 /**
  * Start the livereload server
+ * 
+ * If opts isn't present the global is used, if opts is a number its used as
+ * the port, otherwise as the config object
  *
  * @param {object|number} [opts]
  * @param [opts.port]     livereload server port
@@ -59,7 +90,13 @@ exports.listen = function(opts) {
 };
 
 /**
- *
+ * Instruct the server that a file has changed
+ * and should be re-downloaded.
+ * 
+ * The server must be running or this method will exit on error.
+ * If an object is given the "path" property is used, otherwise
+ * its a path string
+ * 
  * @param  {string|object} filePath
  */
 
@@ -83,14 +120,15 @@ exports.changed = function (filePath) {
 };
 
 /**
- * Invoke a page reload
+ * Invoke a full page reload, including all assets
+ * 
+ * Path to the page in use must be given, If filePath isn't provided then the filePath will be used
+ * from the global config which is by default "index.html". The basePath will automatically be
+ * applied to this
+ * 
+ * * @param  {string} [filePath]
  */
-exports.reload = function() {
-  exports.changed('index.html');
+exports.reload = function(filePath) {
+    if(filePath) exports.changed(filePath);
+    else if(options.reloadPage) exports.changed(options.reloadPage);
 };
-
-/**
- * Express middleware
- */
-
-exports.middleware = tinylr.middleware;
