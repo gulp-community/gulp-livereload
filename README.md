@@ -134,7 +134,7 @@ Here are some common problems you may encounter and the common fix for it
     always disabled unless either explicitly enabled or you provide a LiveReload script tag into the page which
     forces LiveReload to always become enabled on the browser if its instaled.
     
-* ** After setting up this plugin, my website has been replaced by either a white page or square brackets **
+* **After setting up this plugin, my website has been replaced by either a white page or square brackets**
 
     LiveReload cannot be on the same port as your webserver, change the port over to a different port or
     dont explicitly set a port number.
