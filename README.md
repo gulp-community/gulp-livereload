@@ -68,7 +68,7 @@ provided or previosuly setup.
 
 You may provide a simple string or an object, if an object is given it expects a property called "path" to be present on it
 
-    livereload.change(path)
+    livereload.changed(path)
 
 You can also tell the browser to refresh the entire page, including all the assets on the page as opposed to individual assets.
 This works best for single-page apps but can work on any setup. Essentially you need to refresh the page the browser is currently on.
@@ -82,7 +82,7 @@ The base path is not forgotten about and will also be applied if setup
     livereload.reload(path)
 
 Finally theres the Gulp pipe stream function, the most important function, which automatically sends the destination file through
-`livereload.change`
+`livereload.changed`
 
     livereload(options)
 
