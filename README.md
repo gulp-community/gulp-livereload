@@ -137,7 +137,8 @@ Here are some common problems you may encounter and the common fix for it
 * **After setting up this plugin, my website has been replaced by either a white page or square brackets**
 
     LiveReload cannot be on the same port as your webserver, change the port over to a different port or
-    dont explicitly set a port number.
+    dont explicitly set a port number. Also keep in mind that as per the LiveReload standards, the official port number is
+    35729 in case you prefer to explicitly set the port number to the default port.
 
 License
 ---
