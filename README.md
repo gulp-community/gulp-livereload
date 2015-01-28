@@ -82,7 +82,7 @@ The base path is not forgotten about and will also be applied if setup
     livereload.reload(path)
 
 Finally theres the Gulp pipe stream function, the most important function, which automatically sends the destination file through
-`livereload.change`
+`livereload.changed`
 
     livereload(options)
 
