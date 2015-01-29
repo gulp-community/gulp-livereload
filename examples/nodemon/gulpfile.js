@@ -23,7 +23,6 @@ gulp.task('watch', function() {
     this.stdout.on('data', function(chunk) {
       if (/^listening/.test(chunk)) {
         livereload.reload()
-        return
       }
       process.stdout.write(chunk)
     })
