@@ -72,7 +72,7 @@ You may provide a simple string or an object, if an object is given it expects a
 
 You can also tell the browser to refresh the entire page, including all the assets on the page as opposed to individual assets.
 This works best for single-page apps but can work on any setup. Essentially you need to refresh the page the browser is currently on.
-With single-apge apps its just one page, if not then it must be the current page in the browser.
+With single-page apps its just one page, if not then it must be the current page in the browser.
 
 However it's setup, this assumes the page is called "index.html", you can change it by providing an optional new path to use as a
 string or change it globally with the options object exposed and mentioned above.
