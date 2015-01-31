@@ -20,6 +20,20 @@ gulp-livereload
 
 A lightweight [gulp](https://github.com/gulpjs/gulp) plugin for livereload best used with the [livereload chrome extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei).
 
+- [Installation](#install)
+- [Upgrade Notice](#3x-upgrade-notice)
+- [Usage](#usage)
+- [API](#api--variables)
+ - [Options](#options-optional)
+ - [livereload](#livereloadoptions)
+ - [livereload.listen](#livereloadlistenoptions)
+ - [livereload.changed](#livereloadchangedpath)
+ - [livereload.reload](#livereloadreloadfile)
+ - [livereload.middleware](#livereloadmiddleware)
+ - [livereload.server](#livereloadserver)
+- [Debugging](#debugging)
+- [License](#license)
+
 Install
 ---
 
@@ -30,63 +44,13 @@ npm install --save-dev gulp-livereload
 3.x Upgrade Notice
 ---
 
-`gulp-livereload` will not automatically listen for changes. You now have to manually call `livereload.listen` or enable auto start.
-More details below...
+`gulp-livereload` will not automatically listen for changes. You now have to manually call `livereload.listen` unless you set the option `start`:
 
-API & Variables
----
+```js
+livereload({ start: true })
+```
 
-livereload uses a config object throughout its methods and while you never have to
-use this, it is useful if you want to set configuration directly only once.
-
-    livereload.options.port                     Server port
-    livereload.options.host                     Server host
-    livereload.options.basePath                 Path to prepend all given paths
-    livereload.options.start                    Automatically start
-    livereload.options.quiet        false       Disable console logging
-    livereload.options.reloadPage   index.html  Path to the page the browsers on for a full page reload
-
-livereload also reveals the underlying server instance for direct access if needed. The instance
-is a "tiny-lr" instance that this wraps around. If the server is not running then this will be undefined.
-
-    livereload.server
-
-You can also directly access the middleware of the underlying server instance (tiny-lr.middleware) for
-hookup through express, connect, or some other middleware app
-
-    livereload.middleware
-
-To start livereload up and running, use this command. It takes an optional options parameter that is the
-same as the global one noted above. If none is present is uses the above one. Also you dont need to worry with multiple instances as
-this function will end immidiately if the server is already runing. 
-
-    livereload.listen(options)
-
-You can manually, yourself, send a change notification of a single file to the browser causing the browser to reload that change.
-All it requires is a single file path. Do also note that the basePath is not forgotten about and will be applied to the path if 
-provided or previosuly setup.
-
-You may provide a simple string or an object, if an object is given it expects a property called "path" to be present on it
-
-    livereload.changed(path)
-
-You can also tell the browser to refresh the entire page, including all the assets on the page as opposed to individual assets.
-This works best for single-page apps but can work on any setup. Essentially you need to refresh the page the browser is currently on.
-With single-page apps its just one page, if not then it must be the current page in the browser.
-
-However it's setup, this assumes the page is called "index.html", you can change it by providing an optional new path to use as a
-string or change it globally with the options object exposed and mentioned above.
-
-The base path is not forgotten about and will also be applied if setup
-
-    livereload.reload(path)
-
-Finally theres the Gulp pipe stream function, the most important function, which automatically sends the destination file through
-`livereload.changed`
-
-    livereload(options)
-
-Example
+Usage
 ---
 
 ```javascript
@@ -107,7 +71,49 @@ gulp.task('watch', function() {
 });
 ```
 
-See [examples](examples).
+**See [examples](examples)**.
+
+API & Variables
+---
+
+### Options (Optional)
+
+These options can either be set through `livereload.listen(options)` or `livereload(options)`.
+
+```
+port                     Server port
+host                     Server host
+basePath                 Path to prepend all given paths
+start                    Automatically start
+quiet        false       Disable console logging
+reloadPage   index.html  Path to the page the browsers on for a full page reload
+```
+
+### livereload([options])
+
+Creates a stream which notifies the livereload server on what changed.
+
+### livereload.listen([options])
+
+Starts a livereload server. It takes an optional options parameter that is the same as the one noted above. Also you dont need to worry with multiple instances as this function will end immidiately if the server is already runing.
+
+### livereload.changed(path)
+
+Alternatively, you can call this function to send changes to the livereload server. You should provide either a simple string or an object, if an object is given it expects the object to have a `path` property.
+
+> NOTE: Calling this function without providing a `path` will do nothing.
+
+### livereload.reload([file])
+
+You can also tell the browser to refresh the entire page. This assumes the page is called `index.html`, you can change it by providing an **optional** `file` path or change it globally with the options `reloadPage`.
+
+###  livereload.middleware
+
+You can also directly access the middleware of the underlying server instance (tiny-lr.middleware) for hookup through express, connect, or some other middleware app
+
+### livereload.server
+
+gulp-livereload also reveals the underlying server instance for direct access if needed. The instance is a "tiny-lr" instance that this wraps around. If the server is not running then this will be `undefined`.
 
 Debugging
 ---
