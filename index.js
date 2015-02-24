@@ -79,13 +79,14 @@ exports.middleware = tinylr.middleware;
  * @param [opts.quiet=false]
  */
 
-exports.listen = function(opts) {
+exports.listen = function(opts, cb) {
   if (exports.server) return;
   if (typeof opts === 'number') opts = { port: opts };
   options = _assign(options, opts);
   exports.server = new tinylr.Server(options);
   exports.server.listen(options.port, options.host, function() {
     debug('now listening on port %d', options.port);
+    cb && cb();
   });
 };
 
