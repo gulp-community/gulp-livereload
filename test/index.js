@@ -55,6 +55,14 @@ describe('gulp-livereload', function() {
         done();
       });
   });
+  it('listen callback', function() {
+    var spy = sinon.spy()
+    srv.returns({ listen: function(port, host, cb) {
+      cb();
+    }})
+    glr.listen(spy)
+    assert(spy.called)
+  })
   it('middleware', function() {
     assert(typeof glr.middleware === 'function');
   });

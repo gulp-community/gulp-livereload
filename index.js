@@ -77,16 +77,24 @@ exports.middleware = tinylr.middleware;
  * @param [opts.basePath] base directory the path will be resolved to
  * @param [opts.start]    automatically start the server
  * @param [opts.quiet=false]
+ * @param {function} [cb] callback
  */
 
 exports.listen = function(opts, cb) {
   if (exports.server) return;
-  if (typeof opts === 'number') opts = { port: opts };
+
+  if (typeof opts === 'number') {
+    opts = { port: opts };
+  } else if (typeof opts === 'function') {
+    cb = opts;
+    opts = {};
+  }
+
   options = _assign(options, opts);
   exports.server = new tinylr.Server(options);
   exports.server.listen(options.port, options.host, function() {
     debug('now listening on port %d', options.port);
-    if(cb) cb.apply(exports.server, arguments);
+    if(typeof cb === 'function') cb.apply(exports.server, arguments);
   });
 };
 
