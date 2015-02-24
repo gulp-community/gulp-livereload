@@ -86,7 +86,7 @@ exports.listen = function(opts, cb) {
   exports.server = new tinylr.Server(options);
   exports.server.listen(options.port, options.host, function() {
     debug('now listening on port %d', options.port);
-    cb && cb();
+    if(cb) cb.apply(exports.server, arguments);
   });
 };
 
