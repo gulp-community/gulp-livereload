@@ -86,7 +86,7 @@ host                     Server host
 basePath                 Path to prepend all given paths
 start                    Automatically start
 quiet        false       Disable console logging
-reloadPage   index.html  Path to the page the browsers on for a full page reload
+reloadPage   index.html  Path to the browser's current page for a full page reload
 ```
 
 ### livereload([options])
