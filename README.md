@@ -109,11 +109,11 @@ You can also tell the browser to refresh the entire page. This assumes the page 
 
 ###  livereload.middleware
 
-You can also directly access the middleware of the underlying server instance (tiny-lr.middleware) for hookup through express, connect, or some other middleware app
+You can also directly access the middleware of the underlying server instance (mini-lr.middleware) for hookup through express, connect, or some other middleware app
 
 ### livereload.server
 
-gulp-livereload also reveals the underlying server instance for direct access if needed. The instance is a "tiny-lr" instance that this wraps around. If the server is not running then this will be `undefined`.
+gulp-livereload also reveals the underlying server instance for direct access if needed. The instance is a "mini-lr" instance that this wraps around. If the server is not running then this will be `undefined`.
 
 Debugging
 ---
