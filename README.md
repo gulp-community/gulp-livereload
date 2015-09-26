@@ -18,7 +18,7 @@ gulp-livereload
 [9]: https://img.shields.io/github/tag/vohof/gulp-livereload.svg?style=flat
 
 
-A lightweight [gulp](https://github.com/gulpjs/gulp) plugin for livereload best used with the [livereload chrome extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei).
+A lightweight [gulp](https://github.com/gulpjs/gulp) plugin for livereload to be used with the [livereload chrome extension](http://livereload.com/extensions/) or a [livereload middleware](https://github.com/intesso/connect-livereload).
 
 - [Installation](#install)
 - [Upgrade Notice](#3x-upgrade-notice)
