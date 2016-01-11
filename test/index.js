@@ -2,7 +2,7 @@
 
 var gutil = require('gulp-util');
 var es = require('event-stream');
-var minilr = require('mini-lr');
+var tinylr = require('tiny-lr');
 var glr = require('../index.js');
 var sinon = require('sinon');
 var assert = require('assert');
@@ -14,7 +14,7 @@ var srv, log;
 
 describe('gulp-livereload', function() {
   beforeEach(function() {
-    srv = sinon.stub(minilr, 'Server');
+    srv = sinon.stub(tinylr, 'Server');
     log = sinon.stub(gutil, 'log');
   });
   afterEach(function() {
