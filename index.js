@@ -119,6 +119,9 @@ exports.changed = function (filePath) {
   }
   if (options.basePath) {
     filePath = '/' + relative(options.basePath, filePath);
+    if (/^win/.test(process.platform)) {
+      filePath = filePath.replace(/\\/g, '/');
+    }
   }
 
   exports.server.changed({ body: { files: [ filePath ] } });
