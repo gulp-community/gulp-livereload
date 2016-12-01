@@ -125,6 +125,26 @@ Set the `DEBUG` environment variables to `*` to see what's going on
 $ DEBUG=* gulp <task>
 ```
 
+Common Problems
+---
+
+Here are some common problems you may encounter and the common fix for it
+
+* **LiveRelaod is integrated and everything seems to be going A-OK but nothings happening on the client side**
+
+    The usual problem, especially for people new to LiveReload, is that the change signals are being pushed to your browser
+    but they aren't being pulled in. LiveReload also must be present in the browser and the process is different for each
+    supported browser.
+    
+    The other problem is, after you have it installed in your browser, it may not be enabled. LiveReload is usually 
+    always disabled unless either explicitly enabled or you provide a LiveReload script tag into the page which
+    forces LiveReload to always become enabled on the browser if its instaled.
+    
+* **After setting up this plugin, my website has been replaced by either a white page or square brackets**
+
+    LiveReload cannot be on the same port as your webserver, change the port over to a different port or
+    dont explicitly set a port number. Also keep in mind that as per the LiveReload standards, the official port number is
+    35729 in case you prefer to explicitly set the port number to the default port.
 
 License
 ---
