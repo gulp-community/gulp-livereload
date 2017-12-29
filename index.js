@@ -1,11 +1,11 @@
 'use strict';
 
 var es = require('event-stream');
+var log = require('fancy-log');
 var minilr = require('mini-lr');
 var relative = require('path').relative;
 var _assign = require('lodash.assign');
 var debug = require('debug')('gulp:livereload');
-var gutil = require('gulp-util');
 var magenta = require('chalk').magenta;
 
 /**
@@ -124,7 +124,7 @@ exports.changed = function (filePath) {
   exports.server.changed({ body: { files: [ filePath ] } });
 
   if (!options.quiet) {
-    gutil.log(magenta(filePath) + ' reloaded.');
+    log(magenta(filePath) + ' reloaded.');
   }
 };
 
