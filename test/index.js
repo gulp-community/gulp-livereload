@@ -1,21 +1,22 @@
 'use strict';
 
-var gutil = require('gulp-util');
+var fancyLog = {log: require('fancy-log')};
 var es = require('event-stream');
 var minilr = require('mini-lr');
+var Vinyl = require('vinyl');
 var glr = require('../index.js');
 var sinon = require('sinon');
 var assert = require('assert');
 
 var cwd = process.cwd();
-var file = new gutil.File({ base: cwd, cwd: cwd, path: cwd + '/style.css' });
+var file = new Vinyl({ base: cwd, cwd: cwd, path: cwd + '/style.css' });
 var keys = ['basePath', 'key', 'cert', 'start', 'quiet', 'reloadPage'];
 var srv, log;
 
 describe('gulp-livereload', function() {
   beforeEach(function() {
     srv = sinon.stub(minilr, 'Server');
-    log = sinon.stub(gutil, 'log');
+    log = sinon.stub(fancyLog, "log");
   });
   afterEach(function() {
     keys.forEach(function(key) {
