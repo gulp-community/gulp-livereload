@@ -2,7 +2,7 @@
 
 var es = require('event-stream');
 var log = require('fancy-log');
-var minilr = require('mini-lr');
+var minilr = require('tiny-lr');
 var relative = require('path').relative;
 var _assign = require('lodash.assign');
 var debug = require('debug')('gulp:livereload');
