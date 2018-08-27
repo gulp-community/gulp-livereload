@@ -2,7 +2,7 @@
 
 var fancyLog = {log: require('fancy-log')};
 var es = require('event-stream');
-var minilr = require('mini-lr');
+var minilr = require('tiny-lr');
 var Vinyl = require('vinyl');
 var glr = require('../index.js');
 var sinon = require('sinon');
