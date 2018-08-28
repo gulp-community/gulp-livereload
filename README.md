@@ -95,7 +95,7 @@ Creates a stream which notifies the livereload server on what changed.
 
 ### livereload.listen([options])
 
-Starts a livereload server. It takes an optional options parameter that is the same as the one noted above. Also you dont need to worry with multiple instances as this function will end immidiately if the server is already runing.
+Starts a livereload server. It takes an optional options parameter that is the same as the one noted above. Also you dont need to worry with multiple instances as this function will end immediately if the server is already runing.
 
 ### livereload.changed(path)
 
