@@ -4,7 +4,7 @@ var assert = require('assert');
 var es = require('event-stream');
 var path = require('path');
 var sinon = require('sinon');
-var minilr = require('mini-lr');
+var tinyLr = require('tiny-lr');
 var Vinyl = require('vinyl');
 var glr = require('../index.js');
 var fancyLog = {log: require('fancy-log')};
@@ -16,7 +16,7 @@ var srv, log;
 
 describe('gulp-livereload', function() {
   beforeEach(function() {
-    srv = sinon.stub(minilr, 'Server');
+    srv = sinon.stub(tinyLr, 'Server');
     log = sinon.stub(fancyLog, "log");
   });
   afterEach(function() {

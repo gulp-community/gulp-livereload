@@ -2,7 +2,7 @@
 
 var es = require('event-stream');
 var log = require('fancy-log');
-var minilr = require('mini-lr');
+var tinyLr = require('tiny-lr');
 var relative = require('path').relative;
 var _assign = require('lodash.assign');
 var debug = require('debug')('gulp:livereload');
@@ -63,7 +63,7 @@ exports.server = undefined;
  * A direct reference to the underlying servers middleware reference
  */
 
-exports.middleware = minilr.middleware;
+exports.middleware = tinyLr.middleware;
 
 /**
  * Start the livereload server
@@ -91,7 +91,7 @@ exports.listen = function(opts, cb) {
   }
 
   options = _assign(options, opts);
-  exports.server = new minilr.Server(options);
+  exports.server = new tinyLr.Server(options);
   exports.server.listen(options.port, options.host, function() {
     debug('now listening on port %d', options.port);
     if(typeof cb === 'function') cb.apply(exports.server, arguments);
