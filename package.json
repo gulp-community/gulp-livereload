@@ -15,6 +15,9 @@
     "gulpplugin",
     "livereload"
   ],
+  "engines": {
+    "node": ">=6"
+  },
   "dependencies": {
     "chalk": "^0.5.1",
     "debug": "^2.1.0",
