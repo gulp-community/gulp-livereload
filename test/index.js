@@ -1,12 +1,13 @@
 'use strict';
 
-var fancyLog = {log: require('fancy-log')};
+var assert = require('assert');
 var es = require('event-stream');
+var path = require('path');
+var sinon = require('sinon');
 var minilr = require('mini-lr');
 var Vinyl = require('vinyl');
 var glr = require('../index.js');
-var sinon = require('sinon');
-var assert = require('assert');
+var fancyLog = {log: require('fancy-log')};
 
 var cwd = process.cwd();
 var file = new Vinyl({ base: cwd, cwd: cwd, path: cwd + '/style.css' });
@@ -84,8 +85,8 @@ describe('gulp-livereload', function() {
     var spy = sinon.spy(https, 'createServer');
     var read = require('fs').readFileSync;
     var opts  = {
-      key: read(__dirname + '/dev.key'),
-      cert: read(__dirname + '/dev.pem')
+      key: read(path.join(__dirname, 'dev.key')),
+      cert: read(path.join(__dirname, 'dev.crt'))
     };
     srv.restore();
     glr.listen(opts);
