@@ -1,6 +1,6 @@
 'use strict';
 
-var es = require('event-stream');
+var stream = require('readable-stream');
 var log = require('fancy-log');
 var tinyLr = require('tiny-lr');
 var relative = require('path').relative;
@@ -39,10 +39,12 @@ var options = {
 module.exports = exports = function(opts) {
   options = _assign(options, opts);
 
-  var glr = es.map(function(file, done) {
+  var glr = new stream.PassThrough({
+    objectMode: true,
+  });
+  glr.on('data', function(file) {
     var filePath = file.path;
     exports.changed(filePath);
-    done(null, file);
   });
 
   if (options.start) exports.listen(options);
