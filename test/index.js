@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var es = require('event-stream');
+var stream = require('readable-stream');
 var path = require('path');
 var sinon = require('sinon');
 var tinyLr = require('tiny-lr');
@@ -13,6 +13,14 @@ var cwd = process.cwd();
 var file = new Vinyl({ base: cwd, cwd: cwd, path: cwd + '/style.css' });
 var keys = ['basePath', 'key', 'cert', 'start', 'quiet', 'reloadPage'];
 var srv, log;
+
+function readable(callback) {
+  var r = new stream.Readable({
+    objectMode: true
+  });
+  callback.apply(r)
+  return r;
+}
 
 describe('gulp-livereload', function() {
   beforeEach(function() {
@@ -30,10 +38,9 @@ describe('gulp-livereload', function() {
   it('does not work', function(done) {
     var spy = sinon.spy();
     srv.returns({ changed: spy , listen: function() {}});
-    es.readable(function(count, next) {
-        this.emit('data', file);
-        this.emit('end');
-        next();
+    readable(function() {
+        this.push(file);
+        this.push(null);
       })
       .pipe(glr({ basePath: cwd }))
       .on('end', function() {
@@ -46,10 +53,9 @@ describe('gulp-livereload', function() {
     srv.returns({ changed: spy , listen: function() {}});
     var lr = glr();
     glr.listen();
-    es.readable(function(count, next) {
-        this.emit('data', file);
-        this.emit('end');
-        next();
+    readable(function() {
+        this.push(file);
+        this.push(null);
       })
       .pipe(lr)
       .on('end', function() {
@@ -115,10 +121,9 @@ describe('gulp-livereload', function() {
     var spy = sinon.spy();
     srv.returns({ changed: spy , listen: function() {}});
     glr.listen();
-    es.readable(function(count, next) {
-        this.emit('data', file);
-        this.emit('end');
-        next();
+    readable(function() {
+        this.push(file);
+        this.push(null);
       })
       .pipe(glr({ basePath: process.cwd() }))
       .on('end', function() {
@@ -129,10 +134,9 @@ describe('gulp-livereload', function() {
   it('option: start', function(done) {
     var spy = sinon.spy();
     srv.returns({ changed: spy , listen: function() {}});
-    es.readable(function(count, next) {
-        this.emit('data', file);
-        this.emit('end');
-        next();
+    readable(function() {
+        this.push(file);
+        this.push(null);
       })
       .pipe(glr({ start: true }))
       .on('end', function() {
